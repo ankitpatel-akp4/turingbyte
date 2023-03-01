@@ -1,0 +1,35 @@
+python3 -m venv venv
+source venv/bin/activate
+deactivate
+pip install "fastapi[all]"
+pip freeze
+pip freeze > requirements.txt
+pip install -r requirements.txt
+uvicorn main:app --reload
+
+
+
+
+postgres
+service postgresql
+sudo su postgres
+\l
+\du
+alter user postgres with password "test123";
+create user indicate0 with password "test123";
+alter user indicate0 with "superuser"
+man psql
+
+driver
+pip install psycopg
+pip install SQLAlchemy
+
+database migration  alembic
+pip install alembic
+alembic init alembic
+alembic revision --autogenerate -m "Added account table"
+alembic upgrade
+alembic downgrade
+
+
+

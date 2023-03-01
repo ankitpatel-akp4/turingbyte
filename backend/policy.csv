@@ -1,0 +1,5 @@
+p, role_guest, /auths/* , (POST)
+p, a, / , (GET)
+
+g, role_guest, a
+
