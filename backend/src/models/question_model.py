@@ -34,7 +34,7 @@ class Topic(Base):
     __tablename__ = "topics"
     id: Mapped[int] = mapped_column(primary_key=True, index=True)
     topic: Mapped[str] = mapped_column(String, nullable=False, unique=True)
-
+    
 
 
 class TestCase(Base):
@@ -80,6 +80,7 @@ class Status(enum.Enum):
     compile_error = 4
     partially_accepted = 5
     pending = 6
+    time_limit_exceed = 7
 
 
 

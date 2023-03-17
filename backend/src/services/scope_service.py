@@ -24,7 +24,7 @@ async def read_scope_by_id(id:int):
     found_scope = await user_model.Scope.get(id)
     if not found_scope:
         raise HTTPException(status_code=400,detail=f"no record found by id: {id}")
-    
+        
     return found_scope
 
 async def delete_scope(id:int):
