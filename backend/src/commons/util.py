@@ -1,6 +1,6 @@
 from sqlalchemy import desc, asc
 from sqlalchemy.orm import DeclarativeBase
-
+import asyncio
 
 def map_attr(model:DeclarativeBase,filter:dict):
     """
@@ -27,4 +27,12 @@ def map_sort(model:DeclarativeBase,sort:str):
         else:
              sorts.append(asc(getattr(model,s[1:])))
     return sorts
+    
+
+def run_in_loop(func):
+    async def wrapper(*args, **kwargs):
+        loop = asyncio.get_running_loop()
+        return await loop.run_in_executor(None,func,*args,**kwargs)
+    return wrapper
+         
     

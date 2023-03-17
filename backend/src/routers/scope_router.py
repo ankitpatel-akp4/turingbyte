@@ -18,12 +18,14 @@ async def create_scope(scope: user_schemas.ScopeCreate):
 async def update_scope(scope: user_schemas.Scope):
     return await scope_service.update_scope(scope)
 
+def filter(id: int = None, scope: str = None):
+    return {"id": id, "scope": scope}
 @scope_router.get("/",response_model=list[user_schemas.Scope])
-async def search_scope(filter: dict = Depends(parameters.filter),page: dict = Depends(parameters.page),sort:str = parameters.sort()):
+async def search_scope(filter: dict = Depends(filter),page: dict = Depends(parameters.page),sort:str = parameters.sort()):
      return await scope_service.search_scope(filter=filter,sort=sort,page=page,)
 
 @scope_router.get("/{id}",response_model=user_schemas.Scope)
-async def read_scope_by_id(id:int,user = Depends(get_current_active_user)):
+async def read_scope_by_id(id:int):
     scope = await scope_service.read_scope_by_id(id)
     return scope
 

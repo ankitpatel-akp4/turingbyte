@@ -1,9 +1,9 @@
 from fastapi import Depends, FastAPI,HTTPException,status,Request
 from fastapi.middleware.cors import CORSMiddleware
-import casbin
 # # routers import
 from src.routers import (
-    user_router, scope_router, auth_router
+    user_router, scope_router, auth_router, static_router, question_router
+    ,submission_router
     )
 from src.commons.exceptions import exception_middleware
 from src.cruds.database import set_db
@@ -32,9 +32,26 @@ app.add_middleware(
 app.include_router(router=user_router.user_router)
 app.include_router(router=scope_router.scope_router)
 app.include_router(router=auth_router.auth_router)
+app.include_router(router=static_router.static_router)
+app.include_router(router=question_router.question_router)
+app.include_router(router=question_router.topic_router)
+app.include_router(router=submission_router.submission_router)
 
+
+
+def stream():
+    with open("/home/indicate0/Desktop/turingbyte/backend/static/image/video/takeMetoYourHeart.mp4",mode='rb') as video:
+        yield from video
 @app.get("/")
-async def root():
+def root():
+    # return StreamingResponse(stream(),media_type="video/mp4")
+    return "hello"
+
+from fastapi.responses import StreamingResponse, FileResponse
+@app.get("/a",response_class=FileResponse)
+async def root1():
     
-    return {"message": "Hello World"}
+    return "/home/indicate0/Desktop/turingbyte/backend/static/image/video/takeMetoYourHeart.mp4"
+
+
 

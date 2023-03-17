@@ -25,6 +25,7 @@ class UserUpdate(UserBase):
     
 
 class User(UserProfile,UserBase):
+    pic: str
     is_active: bool
     created_at: datetime
     scopes: list[Scope]

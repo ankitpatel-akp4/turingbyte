@@ -3,8 +3,9 @@ import asyncio
 from sqlalchemy.ext.asyncio import async_engine_from_config
 from sqlalchemy import pool
 from alembic import context
+from src.cruds.database import Base
 from src.models import (
-    user_model
+    user_model, auth_model, question_model
 )
 from src.cruds.database import ASYNC_SQLALCHEMY_DATABASE_URL
 # this is the Alembic Config object, which provides
@@ -23,7 +24,7 @@ if config.config_file_name is not None:
 # for 'autogenerate' support
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
-target_metadata = [user_model.Base.metadata,]
+target_metadata = Base.metadata
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
@@ -55,8 +56,7 @@ def run_migrations_offline() -> None:
         context.run_migrations()
 
 
-
-# async migration 
+# async migration
 def do_run_migrations(connection):
     context.configure(connection=connection, target_metadata=target_metadata)
 
@@ -83,8 +83,6 @@ async def run_async_migrations():
     await connectable.dispose()
 
 
-
-
 async def run_migrations_online() -> None:
     """Run migrations in 'online' mode.
 
@@ -99,4 +97,3 @@ if context.is_offline_mode():
     run_migrations_offline()
 else:
     asyncio.run(run_migrations_online())
-

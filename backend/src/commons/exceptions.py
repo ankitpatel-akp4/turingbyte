@@ -43,6 +43,7 @@ async def exception_middleware(request: Request,call_next):
         )
 
     except Exception as e:
+        print(e)
         return ErrorResponse(
         status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
         content={"type":type(e).__name__,"detail": e.args,"timestamp":datetime.utcnow()},
